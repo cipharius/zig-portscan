@@ -14,6 +14,7 @@ pub fn scanPorts(template: std.x.os.IPv4, port_range: PortRange, timeout: u32) v
             std.debug.print("{d}\topen\n", .{port});
         } else |err| {
             switch (err) {
+                error.ConnectionRefused => std.debug.print("{d}\tclosed\n", .{port}),
                 error.WouldBlock => std.debug.print("{d}\ttimeout\n", .{port}),
                 else => std.debug.print("{d}\texception: {}\n", .{port, err}),
             }
